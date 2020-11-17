@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_image"
+        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintCircleRadius="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image_holder"
+        android:layout_width="145dp"
+        android:layout_height="83dp"
+        android:src="@drawable/imegtwo"/>
+    <TextView
+        android:id="@+id/tv_playlist"
+        android:layout_width="145dp"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Playlist" />
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toTopOf="@+id/card_view_image"
+        app:layout_constraintLeft_toRightOf="@+id/card_view_image"
+        app:layout_constraintBottom_toBottomOf="@+id/card_view_image"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="200dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="The following table lists the parameters that this query supports. " />
+        <TextView
+            android:id="@+id/tv_amount_series"
+            android:layout_width="200dp"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:text="32 video series" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
