@@ -1,29 +1,31 @@
 package com.example.youtubeapi.repository
 
-import androidx.lifecycle.MutableLiveData
-import com.example.youtubeapi.models.PlayList
-import com.example.youtubeapi.network.RetrofitClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.lifecycle.liveData
+import com.example.youtubeapi.data.network.Resource
+import com.example.youtubeapi.data.network.RetrofitClient
+import kotlinx.coroutines.Dispatchers
 
 class YouTubeRepository (){
-    val part = "snippet"
+    val part = "snippet,contentDetails"
     val key = "AIzaSyAHFfInYFsMdLO5h8GDO2wm3m84I5_7lyo"
     val channelId = "UCbSFAcyBtP3hp--0PmKF95Q"
 
     private var api  = RetrofitClient().instanceRetrofit()
 
-    fun fetchPlayListsFromNetwork(): MutableLiveData<PlayList?> {
-        val data = MutableLiveData<PlayList?>()
-        api.fetchPlayLists(part,key,channelId).enqueue(object : Callback<PlayList?> {
-            override fun onFailure(call: Call<PlayList?>, t: Throwable) {
-                data.value = null
+    fun fetchPlayLists()= liveData(Dispatchers.IO) {
+            emit(Resource.loading(data = null))
+            try {
+                emit(Resource.success(data = api.fetchPlayLists(part,key,channelId)))
+            } catch (e: Exception) {
+                emit(Resource.error(data = null, message =  e.message ?: "Error"))
             }
-            override fun onResponse(call: Call<PlayList?>, response: Response<PlayList?>) {
-                data.value = response.body()
-            }
-        })
-        return data
+    }
+    fun fetchPlayListsItems(pageToken:String?,playlistId:String)= liveData(Dispatchers.IO){
+        emit(Resource.loading(data = null))
+        try {//////
+            emit(Resource.success(data = api.fetchPlayListsItems(part,pageToken,playlistId,key)))
+        }catch (e: Exception){
+            emit(Resource.error(data = null, message =  e.message ?: "Error"))
+        }
     }
 }

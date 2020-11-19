@@ -9,9 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.extensions.loadImage
 import com.example.youtubeapi.R
-import com.example.youtubeapi.models.PlaylistItems
+import com.example.youtubeapi.data.models.PlaylistItems
+import com.example.youtubeapi.interfa.OnItemClickListener
 
-class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter(var onItemClickListener: OnItemClickListener): RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     var listUrl: MutableList<PlaylistItems> = mutableListOf()
 
@@ -29,23 +30,25 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     }
 
     fun addItems(item: MutableList<PlaylistItems>) {
-        this.listUrl = item
+        listUrl = item
         notifyDataSetChanged()
     }
+
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
        val image : ImageView = itemView.findViewById(R.id.image_holder)
        val title: TextView = itemView.findViewById(R.id.tv_title)
-       val count: TextView = itemView.findViewById(R.id.tv_amount_series)
+       val amountSeries: TextView = itemView.findViewById(R.id.tv_amount_series)
 
         fun onBind(playList: PlaylistItems) {
             image.loadImage(playList.snippet?.thumbnails?.medium?.url.toString())
             title.text = playList.snippet?.title
-            Log.v("RESULT_Adapter",toString())
-
-            image.setOnClickListener {
-
+            amountSeries.text = playList.contentDetails?.itemCount
+            Log.v("RESULT_Adapter" ,""+ playList.contentDetails?.itemCount.toString())
+            itemView.setOnClickListener {
+                onItemClickListener.itemClick(adapterPosition)
             }
+            
 
         }
 

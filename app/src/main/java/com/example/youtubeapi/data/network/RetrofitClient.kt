@@ -1,6 +1,5 @@
-package com.example.youtubeapi.network
+package com.example.youtubeapi.data.network
 
-import com.example.youtubeapi.interfa.YoutubeApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
