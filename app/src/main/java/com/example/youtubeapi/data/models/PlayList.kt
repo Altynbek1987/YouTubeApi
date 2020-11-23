@@ -1,10 +1,15 @@
 package com.example.youtubeapi.data.models
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class PlayList(
+    @PrimaryKey(autoGenerate = true)
+    var id: Long? = null,
     @SerializedName("kind")
     @Expose
     var kind: String? = null,
@@ -13,9 +18,11 @@ data class PlayList(
     var etag: String? = null,
     @SerializedName("items")
     @Expose
-    var items: MutableList<PlaylistItems>? = null
+    var items: MutableList<PlaylistItems>? = null,
+    @SerializedName("nextPageToken")
+    @Expose
+    var nextPageToken: String? = null
 )
-
 data class PlaylistItems(
     @SerializedName("kind")
     @Expose
@@ -31,9 +38,12 @@ data class PlaylistItems(
     var snippet: Snippet? = null,
     @SerializedName("contentDetails")
     @Expose
-    var contentDetails: ContentDetails? = null
+    var contentDetails: ContentDetails? = null,
+    @SerializedName("nextPageToken")
+    @Expose
+    var nextPageToken: String? = null
 
-    )
+)
 
 data class Snippet(
     @SerializedName("publishedAt")
@@ -50,7 +60,10 @@ data class Snippet(
     var description: String? = null,
     @SerializedName("thumbnails")
     @Expose
-    var thumbnails: Thumbnails? = null
+    var thumbnails: Thumbnails? = null,
+    @SerializedName("playlistId")
+    @Expose
+    var playlistId: String? = null
 )
 
 data class Thumbnails(
@@ -66,6 +79,8 @@ data class Medium(
 )
 
 data class ContentDetails(
+    @SerializedName("itemCount")
+    @Expose
     var itemCount: String? = null
 
 )

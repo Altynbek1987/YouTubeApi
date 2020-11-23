@@ -30,7 +30,7 @@ class MainAdapter(var onItemClickListener: OnItemClickListener): RecyclerView.Ad
     }
 
     fun addItems(item: MutableList<PlaylistItems>) {
-        listUrl = item
+        listUrl=item
         notifyDataSetChanged()
     }
 

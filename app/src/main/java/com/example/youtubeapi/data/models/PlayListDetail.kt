@@ -1,13 +1,24 @@
 package com.example.youtubeapi.data.models
 
+import androidx.room.Entity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class PlayListDetail(
+    @SerializedName("kind")
+    @Expose
     var kind: String? = null,
+    @SerializedName("etag")
+    @Expose
     var etag: String? = null,
+    @SerializedName("nextPageToken")
+    @Expose
     var nextPageToken: String? = null,
+    @SerializedName("prevPageToken")
+    @Expose
     var prevPageToken:String? = null,
+    @SerializedName("items")
+    @Expose
     var items: MutableList<DetailVideo>? = null
 )
 data class DetailVideo(
@@ -23,6 +34,8 @@ data class DetailVideo(
     @SerializedName("snippet")
     @Expose
     var snippetD: SnippetD? = null,
+    @SerializedName("pageInfo")
+    @Expose
     var pageInfo : PageInfo? = null
 )
 data class SnippetD(

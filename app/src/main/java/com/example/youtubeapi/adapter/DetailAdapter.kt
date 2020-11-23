@@ -1,5 +1,6 @@
 package com.example.youtubeapi.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.extensions.loadImage
 import com.example.youtubeapi.R
 import com.example.youtubeapi.data.models.DetailVideo
+import com.example.youtubeapi.data.models.PlayListDetail
 import com.example.youtubeapi.data.models.PlaylistItems
 import com.example.youtubeapi.interfa.OnItemClickListener
 
@@ -43,7 +45,7 @@ class DetailAdapter : RecyclerView.Adapter<DetailAdapter.DetailViewHolder>() {
         fun detailBind(detailVideo: DetailVideo) {
             imageVideo.loadImage(detailVideo.snippetD?.thumbnailsD?.mediumD?.urlD.toString())
             titleVideo.text = detailVideo.snippetD?.title
-
+            Log.e("ooo","detailBind"+ imageVideo.loadImage(detailVideo.snippetD?.thumbnailsD?.mediumD?.urlD.toString()))
 //            image.loadImage(playList.snippet?.thumbnails?.medium?.url.toString())
 //            title.text = playList.snippet?.title
 //            amountSeries.text = playList.contentDetails?.itemCount

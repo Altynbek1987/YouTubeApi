@@ -16,9 +16,9 @@ interface YoutubeApi {
     @GET("youtube/v3/playlistItems")
     suspend fun fetchPlayListsItems(
         @Query("part") part: String,
-        @Query("pageToken") pageToken: String?,
+        @Query("key") key: String,
         @Query("playlistId") playlistId: String,
-        @Query("key") key: String
+        @Query("pageToken") pageToken: String?
     ): PlayListDetail
 
 }
