@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.extensions.loadImage
 import com.example.youtubeapi.R
+import com.example.youtubeapi.data.models.PlayList
 import com.example.youtubeapi.data.models.PlaylistItems
 import com.example.youtubeapi.interfa.OnItemClickListener
 

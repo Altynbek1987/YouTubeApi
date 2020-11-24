@@ -5,14 +5,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 class DataBaseClient {
-    internal fun providerDatabase(context: Context):AppDatabase{
-        return Room.databaseBuilder(
+
+    internal fun providerDatabase(context: Context):AppDatabase?{
+        return  Room.databaseBuilder(
             context,
             AppDatabase::class.java,
             "playlist.database"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
+            .build()
     }
 
-    fun providerHistoryDao(appDatabase: AppDatabase):HistoryDao?=appDatabase.historyDao()
-
+    fun provideHistoryDao(appDatabase: AppDatabase):HistoryDao?=appDatabase.historyDao()
 }

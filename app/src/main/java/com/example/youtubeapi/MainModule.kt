@@ -17,7 +17,7 @@ var mainModule: Module = module {
 single { RetrofitClient() }
     single { RetrofitClient().instanceRetrofit() }
 
-    factory { YouTubeRepository(get()) }
+    factory { YouTubeRepository(get(),get()) }
 
 //    factory { Room.databaseBuilder(
 //        androidContext(),
@@ -27,11 +27,11 @@ single { RetrofitClient() }
 }
 val databaseModule = module {
     factory { DataBaseClient().providerDatabase(androidContext()) }
-    factory { DataBaseClient().providerHistoryDao(get()) }
+    factory { DataBaseClient().provideHistoryDao(get()) }
 
 }
 var viewModelModule = module {
-    viewModel{MainViewModel(get(),get())}
+    viewModel{MainViewModel(get())}
     viewModel { DetailViewModel(get()) }
 
 

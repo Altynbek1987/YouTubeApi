@@ -6,17 +6,18 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.youtubeapi.data.models.PlayList
+import com.example.youtubeapi.data.models.PlaylistItems
 
 @Dao
 interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    open fun insert(playlistItems: PlayList): Long
+    fun insert(playlist: PlayList): Long
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(playlistItems: PlayList)
 
 
-    @Query("SELECT*FROM playList")
-    fun getAll(): LiveData<List<PlayList>?>?
+    @Query("SELECT*FROM playlist")
+    fun getAll(): MutableList<PlayList>?
 }

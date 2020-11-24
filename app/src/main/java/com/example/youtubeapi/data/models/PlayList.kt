@@ -23,6 +23,7 @@ data class PlayList(
     @Expose
     var nextPageToken: String? = null
 )
+
 data class PlaylistItems(
     @SerializedName("kind")
     @Expose
