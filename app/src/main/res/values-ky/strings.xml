@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Ойнотмо тизме</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_scrolling">Playlist</string>
+    <string name="large_text">
+        "Material is the metaphor.\n\n"
+
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="here_will_be_the_description_of_the_video">Here will be the description of the video</string>
+    <string name="here_will_be_the_title_of_the_video">Here will be the title of the video</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="try_again">Try again</string>
+    <string name="the_following_table_lists_the_parameters_that_this_query_supports">The following table lists the parameters that this query supports.</string>
+    <string name="_32">32</string>
+    <string name="video_series">видео серия</string>
+    <string name="playlist">Playlist</string>
+    <string name="_3_05">3:05</string>
+    <string name="_20_5">Новый кодекс КР - 20 км/час всего два месяца! (выпуск 5)</string>
+    <string name="english">Англисче</string>
+    <string name="русский">Орусча</string>
+    <string name="korean">Корейский</string>
+    <string name="кыргызча">Кыргызча</string>
+    <string name="выберите_язык">Выберите язык</string>
+</resources>

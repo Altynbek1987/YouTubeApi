@@ -1,5 +1,6 @@
 package com.example.youtubeapi.data.network
 
+import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.data.models.PlayList
 import com.example.youtubeapi.data.models.PlayListDetail
 import retrofit2.http.GET
@@ -20,5 +21,4 @@ interface YoutubeApi {
         @Query("playlistId") playlistId: String,
         @Query("pageToken") pageToken: String?
     ): PlayListDetail
-
 }

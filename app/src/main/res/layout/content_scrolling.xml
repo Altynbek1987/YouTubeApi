@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.detail.DetailVideoActivity"
-    tools:showIn="@layout/activity_detail_video">
+    tools:context=".ui.detail.DetailPlayListActivity"
+    tools:showIn="@layout/activity_detail_play_list">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDetail"
+        android:id="@+id/recyclerViewDetailPlayList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/detail_list_holder"/>
+        tools:listitem="@layout/detail_play_list_holder"/>
 
 </androidx.core.widget.NestedScrollView>

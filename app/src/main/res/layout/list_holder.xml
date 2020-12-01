@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:background="#99000000"
                 android:gravity="center"
-                android:text="Playlist"
+                android:text="@string/playlist"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/image_holder"
@@ -59,7 +59,7 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="The following table lists the parameters that this query supports. "
+            android:text="@string/the_following_table_lists_the_parameters_that_this_query_supports"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -73,15 +73,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="32 "
+                android:text="@string/_32"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_series"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:text=" video series"
+                android:text="@string/video_series"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

@@ -3,14 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/add_image"
+        android:id="@+id/language_russian"
         android:orderInCategory="100"
-        android:title="Добавить картинку"
+        android:title="@string/русский"
         app:showAsAction="never" />
     <item
-        android:id="@+id/delete_image"
+        android:id="@+id/language_english"
         android:orderInCategory="100"
-        android:title="Удалить картинку"
+        android:title="@string/english"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/language_korean"
+        android:orderInCategory="100"
+        android:title="@string/korean"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/language_kyrgyz"
+        android:orderInCategory="100"
+        android:title="@string/кыргызча"
         app:showAsAction="never" />
 
 

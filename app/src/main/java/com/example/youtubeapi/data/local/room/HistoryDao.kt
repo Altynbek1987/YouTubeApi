@@ -1,23 +1,34 @@
 package com.example.youtubeapi.data.local.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.youtubeapi.data.models.PlayList
-import com.example.youtubeapi.data.models.PlaylistItems
+import com.example.youtubeapi.data.models.PlayListDetail
 
 @Dao
 interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(playlist: PlayList): Long
+    fun insertPlayList(playlist: PlayList)
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(playlistItems: PlayList)
+    fun insertDetail(playListDetail: PlayListDetail?)
 
 
     @Query("SELECT*FROM playlist")
-    fun getAll(): MutableList<PlayList>?
+    fun getAll(): PlayList?
+
+    @Query("SELECT*FROM playlistdetail")
+    fun getDetail(): PlayListDetail?
+
+
+
+
+    @Query("SELECT*FROM playlistdetail WHERE id=:id")
+    fun getId(id: String): MutableList<PlayListDetail>?
+
+    @Query("SELECT*FROM playlistdetail WHERE id=:id")
+    fun getById(id: Int): MutableList<PlayListDetail>?
 }

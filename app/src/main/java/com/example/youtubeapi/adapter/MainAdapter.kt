@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.extensions.loadImage
 import com.example.youtubeapi.R
+import com.example.youtubeapi.data.models.PageInfo
 import com.example.youtubeapi.data.models.PlayList
 import com.example.youtubeapi.data.models.PlaylistItems
 import com.example.youtubeapi.interfa.OnItemClickListener
@@ -16,6 +17,7 @@ import com.example.youtubeapi.interfa.OnItemClickListener
 class MainAdapter(var onItemClickListener: OnItemClickListener): RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     var listUrl: MutableList<PlaylistItems> = mutableListOf()
+    var list: MutableList<PageInfo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_holder,parent,false)
@@ -31,10 +33,9 @@ class MainAdapter(var onItemClickListener: OnItemClickListener): RecyclerView.Ad
     }
 
     fun addItems(item: MutableList<PlaylistItems>) {
-        listUrl=item
+        listUrl.addAll(item)
         notifyDataSetChanged()
     }
-
 
    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
        val image : ImageView = itemView.findViewById(R.id.image_holder)
@@ -49,10 +50,7 @@ class MainAdapter(var onItemClickListener: OnItemClickListener): RecyclerView.Ad
             itemView.setOnClickListener {
                 onItemClickListener.itemClick(adapterPosition)
             }
-            
-
         }
-
     }
 }
 

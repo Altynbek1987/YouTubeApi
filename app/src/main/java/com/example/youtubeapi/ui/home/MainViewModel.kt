@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.firstapp.extensions.showToast
+import com.example.youtubeapi.base.BaseViewModel
 import com.example.youtubeapi.data.local.room.AppDatabase
 import com.example.youtubeapi.data.models.PlayList
 import com.example.youtubeapi.data.models.PlayListDetail
@@ -15,12 +16,7 @@ import com.example.youtubeapi.data.network.Resource
 import com.example.youtubeapi.data.network.Status
 import com.example.youtubeapi.repository.YouTubeRepository
 
-class MainViewModel(var repository: YouTubeRepository) : ViewModel() {
-    var errorMessage = MutableLiveData<String>()
-    var playlistItems = MutableLiveData<MutableList<PlaylistItems>>()
-    var playlists = MutableLiveData<MutableList<PlayList>>()
-
-
+class MainViewModel(var repository: YouTubeRepository) : BaseViewModel() {
     fun fetchPlaylists() {
         repository.fetchPlayLists().observeForever {
             when (it.status) {
@@ -33,13 +29,8 @@ class MainViewModel(var repository: YouTubeRepository) : ViewModel() {
         }
     }
     fun loadData() {
-        playlistItems.postValue(repository.loadPlaylist()!![0].items)
+        playlistItems.postValue(repository.loadPlaylist()?.items)
+        Log.e("ppp","MainViewModel fun loadData()"+repository.loadPlaylist()?.items)
     }
-
-
-//    fun fetchPlaylists(): LiveData<Resource<PlayList>> {
-//        //return YouTubeRepository().fetchPlayLists()
-//
-//    }
 
 }

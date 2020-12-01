@@ -10,11 +10,9 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
             Log.e("Error resource request:", result.toString())
             return result
         }
-
         fun <T> loading(data: T?): Resource<T> = Resource(status = Status.LOADING, data = data, message = null)
     }
 }
-
 enum class Status {
     SUCCESS,
     ERROR,
