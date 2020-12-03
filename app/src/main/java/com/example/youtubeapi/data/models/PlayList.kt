@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity
 data class PlayList(
@@ -96,20 +97,22 @@ data class Snippet(
 
     @SerializedName("playlistId")
     @Expose
-    var playlistId: String? = null
-)
+    var playlistId: String? = null,
+    var resourceId: ResourceId? = null
+
+) : Serializable
 
 data class Thumbnails(
     @SerializedName("medium")
     @Expose
     var medium: Medium? = null
-)
+): Serializable
 
 data class Medium(
     @SerializedName("url")
     @Expose
     var url: String? = null
-)
+): Serializable
 
 data class ContentDetails(
     @SerializedName("itemCount")

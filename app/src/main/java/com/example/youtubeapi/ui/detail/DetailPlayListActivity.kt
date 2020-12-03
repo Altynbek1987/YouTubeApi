@@ -1,30 +1,27 @@
 package com.example.youtubeapi.ui.detail
 
-import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
-import android.os.CountDownTimer
 import android.util.Log
-import androidx.appcompat.app.AlertDialog
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
-import com.example.firstapp.extensions.showToast
+import com.example.firstapp.extensions.loadImage
 import com.example.youtubeapi.R
-import com.example.youtubeapi.adapter.DetailPlayListAdapter
 import com.example.youtubeapi.base.BaseActivity
 import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.data.network.Status
 import com.example.youtubeapi.interfa.OnItemClickListener
+import com.example.youtubeapi.ui.detail.adapter.DetailPlayListAdapter
 import com.example.youtubeapi.ui.video.DetailVideoActivity
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_detail_play_list.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 import org.koin.android.ext.android.inject
+
+
+
 
 class DetailPlayListActivity :BaseActivity<DetailPlayListViewModel>(R.layout.activity_detail_play_list),OnItemClickListener {
     private var listDetail: MutableList<DetailVideo> = mutableListOf()
@@ -41,13 +38,15 @@ class DetailPlayListActivity :BaseActivity<DetailPlayListViewModel>(R.layout.act
         }
         setDetailAdapter()
         getIntentData()
+        toggleFullScreen()
     }
     override fun setupLiveData() {
         fetchPlayListsItems()
     }
 
     fun setDetailAdapter() {
-        adapter = DetailPlayListAdapter(this)
+        adapter =
+            DetailPlayListAdapter(this)
         recyclerViewDetailPlayList.adapter = adapter
         val snap = LinearSnapHelper()
         snap.attachToRecyclerView(recyclerView)
@@ -70,7 +69,7 @@ class DetailPlayListActivity :BaseActivity<DetailPlayListViewModel>(R.layout.act
                 Status.SUCCESS -> {
                     it.data?.items?.let{adapter.detailItems(it)}
                     listDetail = it.data?.items!!
-                    toolbar_layout.title = it.data.items?.get(0)?.snippet?.title
+                    toolbar_image.loadImage(it.data.items?.get(0)?.snippet?.thumbnails?.medium?.url.toString())
                 }
                 Status.ERROR -> {
                     saveRoom()
@@ -87,20 +86,25 @@ class DetailPlayListActivity :BaseActivity<DetailPlayListViewModel>(R.layout.act
         })
     }
 
+    override fun itemClick(position: Int) {}
 
-    override fun itemClick(position: Int) {
+    override fun itemClick(model: DetailVideo) {
         val intent = Intent(this,DetailVideoActivity::class.java)
-        intent.putExtra("keyUrl",adapter.detailList[position].snippet?.thumbnails?.medium?.url)
-        intent.putExtra("keyTitle",adapter.detailList[position].snippet?.title)
-        intent.putExtra("keyDescription",adapter.detailList[position].snippet?.description)
+        intent.putExtra("item",model)
+        Log.e("www","DetailPlayListActivity itemClick(model: DetailVideo) ${model.snippet?.resourceId?.videoId}")
         startActivity(intent)
     }
     override fun setupFetchRequests() {
-
-    }
-    fun backPlayList(){
-
     }
 
-
+//    companion object {
+//        var detaillist: DetailVideo? = null
+//        fun instanceActivity(activity: Activity?, detaillist: DetailVideo) {
+//            val intent = Intent(activity, DetailPlayListActivity::class.java)
+//            this.detaillist = detaillist
+//            activity?.startActivity(intent)
+//        }
+//    fun backPlayList(){
+//    }
+//}
 }

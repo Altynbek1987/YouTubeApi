@@ -3,11 +3,9 @@ package com.example.youtubeapi.ui.detail
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.youtubeapi.base.BaseViewModel
-import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.data.models.PlayListDetail
 import com.example.youtubeapi.data.network.Resource
-import com.example.youtubeapi.data.network.Status
-import com.example.youtubeapi.repository.YouTubeRepository
+import com.example.youtubeapi.data.repository.YouTubeRepository
 
 class DetailPlayListViewModel (var repository: YouTubeRepository): BaseViewModel()  {
 

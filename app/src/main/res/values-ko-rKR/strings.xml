@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">재생 목록</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_scrolling">Playlist</string>
+    <string name="title_activity_scrolling">재생 목록</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -14,12 +14,17 @@
     <string name="the_following_table_lists_the_parameters_that_this_query_supports">The following table lists the parameters that this query supports.</string>
     <string name="_32">32</string>
     <string name="video_series"> 비디오 시리즈</string>
-    <string name="playlist">Playlist</string>
+    <string name="playlist">재생 목록</string>
     <string name="_3_05">3:05</string>
     <string name="_20_5">Новый кодекс КР - 20 км/час всего два месяца! (выпуск 5)</string>
     <string name="english">영어</string>
     <string name="русский">러시아인</string>
     <string name="korean">한국어</string>
     <string name="кыргызча">키르기스</string>
-    <string name="выберите_язык">Выберите язык</string>
+    <string name="выберите_язык">언어 선택</string>
+
+    <string name="print">print</string>
+    <string name="copy">copy</string>
+    <string name="upload">upload</string>
+    <string name="share">share</string>
 </resources>

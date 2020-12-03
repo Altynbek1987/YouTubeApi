@@ -1,4 +1,4 @@
-package com.example.youtubeapi
+package com.example.youtubeapi.data.local.pref
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -16,7 +16,9 @@ class Preferences (context: Context) {
         @Volatile
         var instance: Preferences? = null
         fun getInstance(context: Context): Preferences? {
-            if (instance == null) Preferences(context)
+            if (instance == null) Preferences(
+                context
+            )
             return instance
         }
     }

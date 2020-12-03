@@ -1,4 +1,4 @@
-package com.example.youtubeapi.adapter
+package com.example.youtubeapi.ui.detail.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,21 +35,17 @@ class DetailPlayListAdapter (var onItemClickListener: OnItemClickListener): Recy
     }
 
     inner class DetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val imageVideo : ImageView = itemView.findViewById(R.id.image_detail)
         val titleVideo: TextView = itemView.findViewById(R.id.tv_title_video)
-        val lengthVideo: TextView = itemView.findViewById(R.id.tv_length_of_video)
+        //val lengthVideo: TextView = itemView.findViewById(R.id.tv_length_of_video)
 
         fun detailBind(detailVideo: DetailVideo) {
             imageVideo.loadImage(detailVideo.snippet?.thumbnails?.medium?.url.toString())
             titleVideo.text = detailVideo.snippet?.title
             Log.e("ooo","detailBind"+ imageVideo.loadImage(detailVideo.snippet?.thumbnails?.medium?.url.toString()))
-//            image.loadImage(playList.snippet?.thumbnails?.medium?.url.toString())
-//            title.text = playList.snippet?.title
-//            amountSeries.text = playList.contentDetails?.itemCount
 
             itemView.setOnClickListener {
-                onItemClickListener.itemClick(adapterPosition)
+                onItemClickListener.itemClick(detailList[adapterPosition])
             }
         }
     }

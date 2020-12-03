@@ -1,4 +1,4 @@
-package com.example.youtubeapi.adapter
+package com.example.youtubeapi.ui.home.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.extensions.loadImage
 import com.example.youtubeapi.R
 import com.example.youtubeapi.data.models.PageInfo
-import com.example.youtubeapi.data.models.PlayList
 import com.example.youtubeapi.data.models.PlaylistItems
 import com.example.youtubeapi.interfa.OnItemClickListener
 

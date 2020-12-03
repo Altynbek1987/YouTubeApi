@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Плейлист</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_scrolling">Playlist</string>
+    <string name="title_activity_scrolling">Плейлист</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -14,7 +14,7 @@
     <string name="the_following_table_lists_the_parameters_that_this_query_supports">The following table lists the parameters that this query supports.</string>
     <string name="_32">32</string>
     <string name="video_series">серия видео </string>
-    <string name="playlist">Playlist</string>
+    <string name="playlist">Плейлист</string>
     <string name="_3_05">3:05</string>
     <string name="_20_5">Новый кодекс КР - 20 км/час всего два месяца! (выпуск 5)</string>
     <string name="english">Англиский</string>
@@ -22,5 +22,10 @@
     <string name="korean">Корейский</string>
     <string name="кыргызча">Киргизский</string>
     <string name="выберите_язык">Выберите язык</string>
+    <string name="print">print</string>
+    <string name="copy">copy</string>
+    <string name="upload">upload</string>
+    <string name="share">share</string>
+
 
 </resources>

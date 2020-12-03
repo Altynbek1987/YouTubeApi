@@ -1,24 +1,22 @@
 package com.example.youtubeapi.ui.home
 
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.youtubeapi.R
-import com.example.youtubeapi.adapter.MainAdapter
+import com.example.youtubeapi.ui.home.adapter.MainAdapter
 import com.example.youtubeapi.base.BaseActivity
+import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.data.models.PlaylistItems
+import com.example.youtubeapi.extensions.changeLanguage
 import com.example.youtubeapi.interfa.OnItemClickListener
 import com.example.youtubeapi.ui.detail.DetailPlayListActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
-import java.util.*
 
 class MainActivity: BaseActivity<MainViewModel>(R.layout.activity_main), OnItemClickListener {
     private var listUrlMA : MutableList<PlaylistItems> = mutableListOf()
@@ -36,6 +34,7 @@ class MainActivity: BaseActivity<MainViewModel>(R.layout.activity_main), OnItemC
     override fun setupLiveData() {
         fetchPlaylists()
     }
+    override fun setupFetchRequests() {}
 
     private fun setAdapter(){
         adapter = MainAdapter(this)
@@ -58,9 +57,24 @@ class MainActivity: BaseActivity<MainViewModel>(R.layout.activity_main), OnItemC
         Log.e("ooo","itemClick(position: Int)"+ listUrlMA[position].id)
     }
 
+    override fun itemClick(item: DetailVideo) {
+        TODO("Not yet implemented")
+    }
 
-    override fun setupFetchRequests() {
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.edit, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action -> {
+                changeLanguage()
+            }
+        }
+        return true
     }
 
 

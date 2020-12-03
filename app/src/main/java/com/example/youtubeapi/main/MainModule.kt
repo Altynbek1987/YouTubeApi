@@ -1,8 +1,9 @@
-package com.example.youtubeapi
+package com.example.youtubeapi.main
 
+import com.example.youtubeapi.data.local.pref.Preferences
 import com.example.youtubeapi.data.local.room.DataBaseClient
 import com.example.youtubeapi.data.network.RetrofitClient
-import com.example.youtubeapi.repository.YouTubeRepository
+import com.example.youtubeapi.data.repository.YouTubeRepository
 import com.example.youtubeapi.ui.detail.DetailPlayListViewModel
 import com.example.youtubeapi.ui.home.MainViewModel
 import com.example.youtubeapi.ui.video.DetailVideoViewModel

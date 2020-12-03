@@ -1,4 +1,4 @@
-package com.example.youtubeapi.repository
+package com.example.youtubeapi.data.repository
 
 import android.util.Log
 import androidx.lifecycle.liveData

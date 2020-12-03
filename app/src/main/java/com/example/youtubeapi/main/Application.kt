@@ -1,4 +1,4 @@
-package com.example.youtubeapi
+package com.example.youtubeapi.main
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
@@ -17,7 +17,11 @@ class App: Application(){
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(mainModule,viewModelModule,databaseModule))
+            modules(listOf(
+                mainModule,
+                viewModelModule,
+                databaseModule
+            ))
         }
     }
 
