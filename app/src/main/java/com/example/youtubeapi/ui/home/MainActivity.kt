@@ -2,7 +2,6 @@ package com.example.youtubeapi.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.Observer
@@ -18,11 +17,11 @@ import com.example.youtubeapi.ui.detail.DetailPlayListActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
-class MainActivity: BaseActivity<MainViewModel>(R.layout.activity_main), OnItemClickListener {
-    private var listUrlMA : MutableList<PlaylistItems> = mutableListOf()
+class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main), OnItemClickListener {
+    private var listUrlMA: MutableList<PlaylistItems> = mutableListOf()
     private lateinit var adapter: MainAdapter
     override val viewModel by inject<MainViewModel>()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_YouTubeApi)
         super.onCreate(savedInstanceState)
@@ -31,17 +30,20 @@ class MainActivity: BaseActivity<MainViewModel>(R.layout.activity_main), OnItemC
     override fun setupViews() {
         setAdapter()
     }
+
     override fun setupLiveData() {
         fetchPlaylists()
     }
+
     override fun setupFetchRequests() {}
 
-    private fun setAdapter(){
+    private fun setAdapter() {
         adapter = MainAdapter(this)
         recyclerView.adapter = adapter
-        val  snap = LinearSnapHelper()
+        val snap = LinearSnapHelper()
         snap.attachToRecyclerView(recyclerView)
     }
+
     private fun fetchPlaylists() {
         viewModel.fetchPlaylists()
         viewModel.playlistItems.observe(this, Observer {
@@ -51,33 +53,26 @@ class MainActivity: BaseActivity<MainViewModel>(R.layout.activity_main), OnItemC
     }
 
     override fun itemClick(position: Int) {
-       val intent = Intent(this, DetailPlayListActivity::class.java)
-        intent.putExtra("id",listUrlMA[position].id)
-          startActivity(intent)
-        Log.e("ooo","itemClick(position: Int)"+ listUrlMA[position].id)
+        val intent = Intent(this, DetailPlayListActivity::class.java)
+        intent.putExtra("id", listUrlMA[position].id)
+        startActivity(intent)
     }
 
-    override fun itemClick(item: DetailVideo) {
-        TODO("Not yet implemented")
-    }
+    override fun itemClick(item: DetailVideo) {}
 
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.edit, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action -> {
-                changeLanguage()
-            }
-        }
-        return true
-    }
-
-
-
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.edit, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.action -> {
+//                changeLanguage()
+//            }
+//        }
+//        return true
+//    }
 }
 

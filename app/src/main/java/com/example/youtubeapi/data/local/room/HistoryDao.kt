@@ -12,23 +12,12 @@ interface HistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPlayList(playlist: PlayList)
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDetail(playListDetail: PlayListDetail?)
-
 
     @Query("SELECT*FROM playlist")
     fun getAll(): PlayList?
 
     @Query("SELECT*FROM playlistdetail")
     fun getDetail(): PlayListDetail?
-
-
-
-
-    @Query("SELECT*FROM playlistdetail WHERE id=:id")
-    fun getId(id: String): MutableList<PlayListDetail>?
-
-    @Query("SELECT*FROM playlistdetail WHERE id=:id")
-    fun getById(id: Int): MutableList<PlayListDetail>?
 }

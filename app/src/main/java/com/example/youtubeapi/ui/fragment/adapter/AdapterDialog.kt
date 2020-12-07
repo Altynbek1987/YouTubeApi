@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.extensions.loadImage
 import com.example.youtubeapi.R
 import com.example.youtubeapi.data.models.DetailVideo
-import com.example.youtubeapi.interfa.OnItemClickListener
 
-class AdapterDialog (var onItemClickListener: OnItemClickListener): RecyclerView.Adapter<AdapterDialog.DialogHolder>(){
+class AdapterDialog : RecyclerView.Adapter<AdapterDialog.DialogHolder>() {
 
     var listBottomSh: MutableList<DetailVideo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DialogHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.bottom_sheet_holder,parent,false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.bottom_sheet_holder, parent, false)
         return DialogHolder(view)
     }
 
@@ -31,16 +31,16 @@ class AdapterDialog (var onItemClickListener: OnItemClickListener): RecyclerView
         listBottomSh.addAll(item)
         notifyDataSetChanged()
     }
-    inner class DialogHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val imageBottomSheet : ImageView = itemView.findViewById(R.id.image_bottom_sheet)
+
+    inner class DialogHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imageBottomSheet: ImageView = itemView.findViewById(R.id.image_bottom_sheet)
 
         fun dialogBind(detailVideo: DetailVideo) {
-            imageBottomSheet.loadImage(detailVideo.snippet?.thumbnails?.medium?.url.toString())
-//            itemView.setOnClickListener {
-//                onItemClickListener.itemClick(listBottomSh[adapterPosition])
-//            }
+            detailVideo.snippet?.thumbnails?.medium?.url?.let {
+                imageBottomSheet.loadImage(
+                    it
+                )
+            }
         }
-
-
     }
 }

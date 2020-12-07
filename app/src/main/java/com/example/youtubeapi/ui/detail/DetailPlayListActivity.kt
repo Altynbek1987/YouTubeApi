@@ -1,7 +1,5 @@
 package com.example.youtubeapi.ui.detail
 
-import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.firstapp.extensions.loadImage
@@ -20,10 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 import org.koin.android.ext.android.inject
 
-
-
-
-class DetailPlayListActivity :BaseActivity<DetailPlayListViewModel>(R.layout.activity_detail_play_list),OnItemClickListener {
+class DetailPlayListActivity :
+    BaseActivity<DetailPlayListViewModel>(R.layout.activity_detail_play_list), OnItemClickListener {
     private var listDetail: MutableList<DetailVideo> = mutableListOf()
     private lateinit var adapter: DetailPlayListAdapter
     override val viewModel by inject<DetailPlayListViewModel>()
@@ -40,9 +36,12 @@ class DetailPlayListActivity :BaseActivity<DetailPlayListViewModel>(R.layout.act
         getIntentData()
         toggleFullScreen()
     }
+
     override fun setupLiveData() {
         fetchPlayListsItems()
     }
+
+    override fun setupFetchRequests() {}
 
     fun setDetailAdapter() {
         adapter =
@@ -54,32 +53,26 @@ class DetailPlayListActivity :BaseActivity<DetailPlayListViewModel>(R.layout.act
 
     private fun getIntentData() {
         data = intent.getStringExtra("id")
-        Log.e("ooo", "getIntentData(" + intent.getStringExtra("id"))
     }
 
     private fun fetchPlayListsItems() {
-//        data?.let { detailViewModel.fetchPlayListsItems(it,null) }
-//        detailViewModel.detailPlaylists.observe(this, Observer {
-//            adapter.detailItems(it)
-//            listDetail = it
-//        })
-    data?.let { data ->
-        viewModel.fetchPlayListsItems(data,null).observe(this, Observer { it ->
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data?.items?.let{adapter.detailItems(it)}
-                    listDetail = it.data?.items!!
-                    toolbar_image.loadImage(it.data.items?.get(0)?.snippet?.thumbnails?.medium?.url.toString())
+        data?.let { data ->
+            viewModel.fetchPlayListsItems(data, null).observe(this, Observer { it ->
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        it.data?.items?.let { adapter.detailItems(it) }
+                        listDetail = it.data?.items!!
+                        toolbar_image.loadImage(it.data.items?.get(0)?.snippet?.thumbnails?.medium?.url.toString())
+                    }
+                    Status.ERROR -> {
+                        saveRoom()
+                    }
                 }
-                Status.ERROR -> {
-                    saveRoom()
-                }
-            }
-        })
-        Log.e("ppp","DetailVideoActivity fetchPlayListsItems()"+viewModel.fetchPlayListsItems(data,null))
+            })
+        }
     }
-}
-     fun saveRoom(){
+
+    fun saveRoom() {
         viewModel.loadDataVideo()
         viewModel.detailPlaylists.observe(this, Observer {
             adapter.detailItems(it)
@@ -89,22 +82,6 @@ class DetailPlayListActivity :BaseActivity<DetailPlayListViewModel>(R.layout.act
     override fun itemClick(position: Int) {}
 
     override fun itemClick(model: DetailVideo) {
-        val intent = Intent(this,DetailVideoActivity::class.java)
-        intent.putExtra("item",model)
-        Log.e("www","DetailPlayListActivity itemClick(model: DetailVideo) ${model.snippet?.resourceId?.videoId}")
-        startActivity(intent)
+        DetailVideoActivity.instanceActivity(this, listDetail)
     }
-    override fun setupFetchRequests() {
-    }
-
-//    companion object {
-//        var detaillist: DetailVideo? = null
-//        fun instanceActivity(activity: Activity?, detaillist: DetailVideo) {
-//            val intent = Intent(activity, DetailPlayListActivity::class.java)
-//            this.detaillist = detaillist
-//            activity?.startActivity(intent)
-//        }
-//    fun backPlayList(){
-//    }
-//}
 }

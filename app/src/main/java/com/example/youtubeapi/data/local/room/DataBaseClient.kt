@@ -2,12 +2,11 @@ package com.example.youtubeapi.data.local.room
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 
 class DataBaseClient {
 
-    internal fun providerDatabase(context: Context):AppDatabase?{
-        return  Room.databaseBuilder(
+    internal fun providerDatabase(context: Context): AppDatabase? {
+        return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
             "playlist.database"
@@ -17,5 +16,5 @@ class DataBaseClient {
             .build()
     }
 
-    fun provideHistoryDao(appDatabase: AppDatabase):HistoryDao?=appDatabase.historyDao()
+    fun provideHistoryDao(appDatabase: AppDatabase): HistoryDao? = appDatabase.historyDao()
 }

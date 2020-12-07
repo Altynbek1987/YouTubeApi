@@ -13,21 +13,20 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 var mainModule: Module = module {
-single { RetrofitClient() }
+    single { RetrofitClient() }
     single { RetrofitClient().instanceRetrofit() }
-    single { YouTubeRepository(get(),get()) }
+    single { YouTubeRepository(get(), get()) }
     single { Preferences(get()) }
-
 }
+
 val databaseModule = module {
     single { DataBaseClient().providerDatabase(androidContext()) }
     single { DataBaseClient().provideHistoryDao(get()) }
-
 }
-var viewModelModule = module {
-    viewModel{MainViewModel(get())}
-    viewModel { DetailPlayListViewModel(get()) }
-    viewModel { DetailVideoViewModel (get())}
 
+var viewModelModule = module {
+    viewModel { MainViewModel(get()) }
+    viewModel { DetailPlayListViewModel(get()) }
+    viewModel { DetailVideoViewModel() }
 }
 

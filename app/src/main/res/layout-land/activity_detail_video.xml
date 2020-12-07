@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.video.DetailVideoActivity">
-<com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-    android:layout_width="match_parent"
-    android:id="@+id/youtube_player_view"
-    android:layout_height="match_parent"
-    app:showYouTubeButton="true"/>
+
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:showYouTubeButton="true" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
                 android:layout_margin="10dp"
                 android:text="@string/here_will_be_the_title_of_the_video"
                 android:textSize="25sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/image_download"

@@ -3,7 +3,7 @@ package com.example.youtubeapi.data.local.pref
 import android.content.Context
 import android.content.SharedPreferences
 
-class Preferences (context: Context) {
+class Preferences(context: Context) {
     private var preferences: SharedPreferences? = null
     val preference: String?
         get() = preferences?.getString("language_", "")
@@ -26,6 +26,5 @@ class Preferences (context: Context) {
     init {
         instance = this
         preferences = context.getSharedPreferences("my_language", Context.MODE_PRIVATE)
-
     }
 }

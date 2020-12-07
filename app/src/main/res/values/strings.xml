@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Плейлист</string>
+    <string name="app_name">Joldo.kg</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_scrolling">Плейлист</string>
+    <string name="title_activity_scrolling">Joldo.kg</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

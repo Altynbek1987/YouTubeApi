@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.Nullable
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.youtubeapi.R
 import com.example.youtubeapi.data.models.DetailVideo
@@ -16,16 +17,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_action_bottom_dialog.*
 
-class ActionBottomDialogFragment(private val listt:MutableList<DetailVideo>) : BottomSheetDialogFragment(),View.OnClickListener,
+class ActionBottomDialogFragment() : BottomSheetDialogFragment(), View.OnClickListener,
     OnItemClickListener {
     private var mListener: ItemClickListener? = null
     private lateinit var adapter: AdapterDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-@Nullable
+    @Nullable
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,16 +33,13 @@ class ActionBottomDialogFragment(private val listt:MutableList<DetailVideo>) : B
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDialogAdapter()
-//        textView.setOnClickListener(this)
-//        textView2.setOnClickListener(this)
-//        textView3.setOnClickListener(this)
-//        textView4.setOnClickListener(this)
     }
+
     fun setDialogAdapter() {
         adapter =
-            AdapterDialog(this)
+            AdapterDialog()
         recyclerView_dialog_fragment.adapter = adapter
-        adapter.videoDialog(item = listt)
+        detaillist?.let { adapter.videoDialog(item = it) }
         val snap = LinearSnapHelper()
         snap.attachToRecyclerView(recyclerView)
     }
@@ -67,9 +61,14 @@ class ActionBottomDialogFragment(private val listt:MutableList<DetailVideo>) : B
     }
 
     companion object {
-        val TAG = "ActionBottomDialog"
-        fun newInstance(listDialogg: MutableList<DetailVideo>): ActionBottomDialogFragment? {
-            return ActionBottomDialogFragment(listDialogg)
+        var detaillist: MutableList<DetailVideo>? = null
+        fun showFragment(
+            detaillist: MutableList<DetailVideo>,
+            supportFragmentManager: FragmentManager
+        ) {
+            this.detaillist = detaillist
+            val fragmentt = ActionBottomDialogFragment()
+            fragmentt.show(supportFragmentManager, fragmentt.tag)
         }
     }
 
@@ -78,6 +77,7 @@ class ActionBottomDialogFragment(private val listt:MutableList<DetailVideo>) : B
         mListener!!.onItemClick(tvSelected.text.toString())
         dismiss()
     }
+
     interface ItemClickListener {
         fun onItemClick(item: String?)
     }
@@ -88,8 +88,5 @@ class ActionBottomDialogFragment(private val listt:MutableList<DetailVideo>) : B
 
     override fun itemClick(model: DetailVideo) {
         TODO("Not yet implemented")
-    }
-    fun intentDialog(){
-
     }
 }

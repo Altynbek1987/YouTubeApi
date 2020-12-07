@@ -1,7 +1,6 @@
 package com.example.youtubeapi.conventer
 
 import androidx.room.TypeConverter
-import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.data.models.PlaylistItems
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -25,5 +24,4 @@ class ClassTypeConverter {
             object : TypeToken<MutableList<PlaylistItems>?>() {}.type
         return gson.fromJson(json, type)
     }
-
 }
