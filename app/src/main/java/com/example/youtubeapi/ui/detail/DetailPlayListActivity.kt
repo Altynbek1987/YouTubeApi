@@ -29,6 +29,7 @@ class DetailPlayListActivity :
         setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+            DetailVideoActivity.instanceActivity(this, listDetail, 0)
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
@@ -79,9 +80,11 @@ class DetailPlayListActivity :
         })
     }
 
-    override fun itemClick(position: Int) {}
+    override fun itemClick(position: Int) {
+        DetailVideoActivity.instanceActivity(this, listDetail, position)
+    }
 
     override fun itemClick(model: DetailVideo) {
-        DetailVideoActivity.instanceActivity(this, listDetail)
+
     }
 }

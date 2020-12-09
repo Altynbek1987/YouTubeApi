@@ -12,6 +12,9 @@ class YouTubeRepository(private var api: YoutubeApi, var dao: HistoryDao) {
     val key = "AIzaSyAHFfInYFsMdLO5h8GDO2wm3m84I5_7lyo"
     val channelId = "UCbSFAcyBtP3hp--0PmKF95Q"
 
+    //UCZuOa_5bjoD1b6PfwzlSXng
+    //UCbSFAcyBtP3hp--0PmKF95Q Жолдо кг
+
     fun fetchPlayLists() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {

@@ -8,19 +8,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.lifecycle.MutableLiveData
 import com.example.youtubeapi.R
 import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.interfa.OnItemClickListener
 import com.example.youtubeapi.ui.fragment.adapter.AdapterDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_action_bottom_dialog.*
 
-class ActionBottomDialogFragment() : BottomSheetDialogFragment(), View.OnClickListener,
-    OnItemClickListener {
+class ActionBottomDialogFragment(private var onItemClickListener: OnItemClickListener) :
+    BottomSheetDialogFragment(), View.OnClickListener {
     private var mListener: ItemClickListener? = null
     private lateinit var adapter: AdapterDialog
+    var videoPlaylists = MutableLiveData<MutableList<DetailVideo>>()
+    private var listBSh: MutableList<DetailVideo> = mutableListOf()
 
     @Nullable
     override fun onCreateView(
@@ -37,11 +38,9 @@ class ActionBottomDialogFragment() : BottomSheetDialogFragment(), View.OnClickLi
 
     fun setDialogAdapter() {
         adapter =
-            AdapterDialog()
+            AdapterDialog(onItemClickListener)
         recyclerView_dialog_fragment.adapter = adapter
         detaillist?.let { adapter.videoDialog(item = it) }
-        val snap = LinearSnapHelper()
-        snap.attachToRecyclerView(recyclerView)
     }
 
     override fun onAttach(context: Context) {
@@ -64,10 +63,11 @@ class ActionBottomDialogFragment() : BottomSheetDialogFragment(), View.OnClickLi
         var detaillist: MutableList<DetailVideo>? = null
         fun showFragment(
             detaillist: MutableList<DetailVideo>,
-            supportFragmentManager: FragmentManager
+            supportFragmentManager: FragmentManager,
+            onItemClickListener: OnItemClickListener
         ) {
             this.detaillist = detaillist
-            val fragmentt = ActionBottomDialogFragment()
+            val fragmentt = ActionBottomDialogFragment(onItemClickListener)
             fragmentt.show(supportFragmentManager, fragmentt.tag)
         }
     }
@@ -82,11 +82,13 @@ class ActionBottomDialogFragment() : BottomSheetDialogFragment(), View.OnClickLi
         fun onItemClick(item: String?)
     }
 
-    override fun itemClick(position: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun itemClick(model: DetailVideo) {
-        TODO("Not yet implemented")
-    }
+//    override fun itemClick(position: Int) {
+////        val intent = Intent(requireContext(), DetailVideoActivity::class.java)
+////        intent.putExtra("idV", detaillist?.get(position)?.snippet?.resourceId?.videoId)
+////        startActivity(intent)
+//    }
+//
+//    override fun itemClick(model: DetailVideo) {
+//        TODO("Not yet implemented")
+//    }
 }

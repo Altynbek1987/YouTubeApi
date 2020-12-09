@@ -1,6 +1,5 @@
 package com.example.youtubeapi.ui.detail.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,13 +43,9 @@ class DetailPlayListAdapter(var onItemClickListener: OnItemClickListener) :
         fun detailBind(detailVideo: DetailVideo) {
             imageVideo.loadImage(detailVideo.snippet?.thumbnails?.medium?.url.toString())
             titleVideo.text = detailVideo.snippet?.title
-            Log.e(
-                "ooo",
-                "detailBind" + imageVideo.loadImage(detailVideo.snippet?.thumbnails?.medium?.url.toString())
-            )
 
             itemView.setOnClickListener {
-                onItemClickListener.itemClick(detailList[adapterPosition])
+                onItemClickListener.itemClick(adapterPosition)
             }
         }
     }

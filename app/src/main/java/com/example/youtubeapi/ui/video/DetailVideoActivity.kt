@@ -3,7 +3,6 @@ package com.example.youtubeapi.ui.video
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.NonNull
 import com.example.youtubeapi.R
 import com.example.youtubeapi.base.BaseActivity
@@ -20,6 +19,7 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
     ActionBottomDialogFragment.ItemClickListener, OnItemClickListener {
     override val viewModel by inject<DetailVideoViewModel>()
     private var listDialogg: MutableList<DetailVideo> = mutableListOf()
+    private var dataV: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_YouTubeApi)
@@ -28,8 +28,9 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
         image_download.setOnClickListener {
             detaillist?.let { it1 ->
                 ActionBottomDialogFragment.showFragment(
+                    detaillist = it1,
                     supportFragmentManager = supportFragmentManager,
-                    detaillist = it1
+                    onItemClickListener = this
                 )
             }
         }
@@ -38,6 +39,7 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
     override fun setupViews() {
         getIntentVideo()
         toggleFullScreen()
+        videoBSh()
     }
 
     override fun setupLiveData() {}
@@ -45,10 +47,21 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
     override fun setupFetchRequests() {}
 
     fun getIntentVideo() {
-        playerYT(detaillist?.get(0)?.snippet?.resourceId?.videoId)
-        tv_title_detail_video.text = detaillist?.get(0)?.snippet?.title
-        tv_description_detail_video.text = detaillist?.get(0)?.snippet?.description
+        positionVideo?.let {
+            if (dataV.isNullOrEmpty()) dataV =
+                detaillist?.get(positionVideo!!)?.snippet?.resourceId?.videoId
+            playerYT(dataV)
+            tv_title_detail_video.text = detaillist?.get(positionVideo!!)?.snippet?.title
+            tv_description_detail_video.text =
+                detaillist?.get(positionVideo!!)?.snippet?.description
+        }
+
     }
+
+    fun videoBSh() {
+        dataV = intent.getStringExtra("idV")
+    }
+
 
     fun playerYT(videoId: String?) {
         val youTubePlayerView =
@@ -62,6 +75,9 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
             }
         })
     }
+//    fun playBottomSh(){
+//        dataV.let { playerYT(it) }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -73,19 +89,35 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
     }
 
     override fun itemClick(position: Int) {
-        TODO("Not yet implemented")
+        position.let {
+            detaillist?.let { it1 ->
+                instanceActivity(
+                    this,
+                    it1, it
+                )
+            }
+        }
+        finish()
     }
 
     override fun itemClick(model: DetailVideo) {
         ActionBottomDialogFragment.showFragment(
+            detaillist = listDialogg,
             supportFragmentManager = supportFragmentManager,
-            detaillist = listDialogg
+            onItemClickListener = this
         )
     }
 
     companion object {
         var detaillist: MutableList<DetailVideo>? = null
-        fun instanceActivity(context: Context, detaillist: MutableList<DetailVideo>) {
+        var positionVideo: Int? = null
+
+        fun instanceActivity(
+            context: Context,
+            detaillist: MutableList<DetailVideo>,
+            positionVideo: Int
+        ) {
+            this.positionVideo = positionVideo
             val intent = Intent(context, DetailVideoActivity::class.java)
             this.detaillist = detaillist
             context.startActivity(intent)

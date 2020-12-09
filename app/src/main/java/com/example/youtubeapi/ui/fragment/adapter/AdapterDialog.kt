@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.extensions.loadImage
 import com.example.youtubeapi.R
 import com.example.youtubeapi.data.models.DetailVideo
+import com.example.youtubeapi.interfa.OnItemClickListener
 
-class AdapterDialog : RecyclerView.Adapter<AdapterDialog.DialogHolder>() {
+class AdapterDialog(val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<AdapterDialog.DialogHolder>() {
 
     var listBottomSh: MutableList<DetailVideo> = mutableListOf()
 
@@ -34,12 +36,17 @@ class AdapterDialog : RecyclerView.Adapter<AdapterDialog.DialogHolder>() {
 
     inner class DialogHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageBottomSheet: ImageView = itemView.findViewById(R.id.image_bottom_sheet)
+        val tvList:TextView=itemView.findViewById(R.id.tv_list)
 
         fun dialogBind(detailVideo: DetailVideo) {
             detailVideo.snippet?.thumbnails?.medium?.url?.let {
                 imageBottomSheet.loadImage(
                     it
                 )
+            }
+            tvList.text = detailVideo.snippet?.title
+            itemView.setOnClickListener {
+                onItemClickListener.itemClick(adapterPosition)
             }
         }
     }

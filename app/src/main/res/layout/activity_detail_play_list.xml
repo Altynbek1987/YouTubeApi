@@ -26,14 +26,13 @@
             <ImageView
                 android:id="@+id/toolbar_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_arrow"
                 app:popupTheme="@style/Theme.YouTubeApi.PopupOverlay" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -48,7 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
+        android:backgroundTint="@color/toolbar"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_media_play" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
