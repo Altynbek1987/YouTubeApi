@@ -1,6 +1,9 @@
 package com.example.firstapp.extensions
 
+import android.app.Activity
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -25,8 +28,8 @@ fun View.visible() {
     this.visibility = View.VISIBLE
 }
 
-
-
-
-
-
+fun isOnline(activity: Activity): Boolean {
+    val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+    return networkInfo?.isConnected == true
+}

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_material_light"
     android:orientation="vertical"
     tools:context=".ui.video.DetailVideoActivity">
 
@@ -13,11 +14,37 @@
         android:layout_height="wrap_content"
         app:showYouTubeButton="true" />
 
+    <LinearLayout
+        android:id="@+id/layoutDisconnectDva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_internet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_internet" />
+
+        <TextView
+            android:id="@+id/tv_no_internet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Подключение к Интернету отсутствует"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/layoutConnectDva"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -33,17 +60,17 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/image_download"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Лист"
-                android:textColor="#FF0000"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                app:cornerRadius="10dp"
-                app:strokeColor="#FF0000"
+                android:text="@string/лист"
                 android:textAllCaps="false"
+                android:textColor="#FF0000"
+                app:cornerRadius="10dp"
                 app:layout_constraintLeft_toLeftOf="@id/tv_title_detail_video"
-                app:layout_constraintTop_toBottomOf="@id/tv_title_detail_video" />
+                app:layout_constraintTop_toBottomOf="@id/tv_title_detail_video"
+                app:strokeColor="#FF0000" />
 
             <TextView
                 android:id="@+id/tv_description_detail_video"
@@ -53,6 +80,7 @@
                 android:text="@string/here_will_be_the_description_of_the_video"
                 android:textSize="15sp"
                 app:layout_constraintTop_toBottomOf="@id/image_download" />
+
         </LinearLayout>
 
     </ScrollView>

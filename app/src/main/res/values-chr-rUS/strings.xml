@@ -22,9 +22,9 @@
     <string name="korean">Korean</string>
     <string name="кыргызча">Kyrgyz</string>
     <string name="выберите_язык">Choose language</string>
-
     <string name="print">print</string>
     <string name="copy">copy</string>
     <string name="upload">upload</string>
     <string name="share">share</string>
+    <string name="лист">Лист</string>
 </resources>

@@ -20,8 +20,6 @@ class ActionBottomDialogFragment(private var onItemClickListener: OnItemClickLis
     BottomSheetDialogFragment(), View.OnClickListener {
     private var mListener: ItemClickListener? = null
     private lateinit var adapter: AdapterDialog
-    var videoPlaylists = MutableLiveData<MutableList<DetailVideo>>()
-    private var listBSh: MutableList<DetailVideo> = mutableListOf()
 
     @Nullable
     override fun onCreateView(
@@ -81,14 +79,4 @@ class ActionBottomDialogFragment(private var onItemClickListener: OnItemClickLis
     interface ItemClickListener {
         fun onItemClick(item: String?)
     }
-
-//    override fun itemClick(position: Int) {
-////        val intent = Intent(requireContext(), DetailVideoActivity::class.java)
-////        intent.putExtra("idV", detaillist?.get(position)?.snippet?.resourceId?.videoId)
-////        startActivity(intent)
-//    }
-//
-//    override fun itemClick(model: DetailVideo) {
-//        TODO("Not yet implemented")
-//    }
 }

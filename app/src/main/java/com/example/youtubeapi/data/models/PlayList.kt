@@ -36,6 +36,7 @@ data class PlaylistItems(
     @SerializedName("id")
     var id: String? = null,
 
+    @SerializedName("pageInfo")
     var pageInfo: PageInfo? = null,
 
     @SerializedName("snippet")

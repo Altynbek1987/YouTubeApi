@@ -23,6 +23,4 @@
         android:title="@string/кыргызча"
         app:showAsAction="never" />
 
-
-
 </menu>

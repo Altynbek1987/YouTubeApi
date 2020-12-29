@@ -2,8 +2,14 @@ package com.example.youtubeapi.ui.video
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.NonNull
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
+import com.example.firstapp.extensions.isOnline
+import com.example.firstapp.extensions.showToast
 import com.example.youtubeapi.R
 import com.example.youtubeapi.base.BaseActivity
 import com.example.youtubeapi.data.models.DetailVideo
@@ -12,6 +18,7 @@ import com.example.youtubeapi.ui.fragment.ActionBottomDialogFragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.r0adkll.slidr.Slidr
 import kotlinx.android.synthetic.main.activity_detail_video.*
 import org.koin.android.ext.android.inject
 
@@ -34,8 +41,29 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
                 )
             }
         }
+        Slidr.attach(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.networkLiveData().observe(this, Observer {isConnected ->
+            if (isConnected){
+                layoutDisconnectDva.visibility = View.GONE
+
+                layoutConnectDva.visibility = View.VISIBLE
+            }else{
+                layoutConnectDva.visibility = View.GONE
+                layoutDisconnectDva.visibility = View.VISIBLE
+            }
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.networkLiveData().removeObservers(this)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     override fun setupViews() {
         getIntentVideo()
         toggleFullScreen()
@@ -47,6 +75,7 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
     override fun setupFetchRequests() {}
 
     fun getIntentVideo() {
+        if (isOnline(this)) {
         positionVideo?.let {
             if (dataV.isNullOrEmpty()) dataV =
                 detaillist?.get(positionVideo!!)?.snippet?.resourceId?.videoId
@@ -55,13 +84,14 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
             tv_description_detail_video.text =
                 detaillist?.get(positionVideo!!)?.snippet?.description
         }
-
+    }else{
+            this.showToast("Подключитесь к интернету")
+        }
     }
 
     fun videoBSh() {
         dataV = intent.getStringExtra("idV")
     }
-
 
     fun playerYT(videoId: String?) {
         val youTubePlayerView =
@@ -75,18 +105,13 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
             }
         })
     }
-//    fun playBottomSh(){
-//        dataV.let { playerYT(it) }
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
         youtube_player_view.release()
     }
 
-    override fun onItemClick(item: String?) {
-        TODO("Not yet implemented")
-    }
+    override fun onItemClick(item: String?) {}
 
     override fun itemClick(position: Int) {
         position.let {
@@ -124,7 +149,3 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
         }
     }
 }
-
-//android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"  Сохранение состояния втавить нада в манифест
-
-

@@ -1,8 +1,13 @@
 package com.example.youtubeapi.ui.detail
 
+import android.os.Build
+import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearSnapHelper
+import com.example.firstapp.extensions.isOnline
 import com.example.firstapp.extensions.loadImage
+import com.example.firstapp.extensions.showToast
 import com.example.youtubeapi.R
 import com.example.youtubeapi.base.BaseActivity
 import com.example.youtubeapi.data.models.DetailVideo
@@ -15,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_detail_play_list.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_no_internet.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 import org.koin.android.ext.android.inject
 
@@ -25,17 +31,41 @@ class DetailPlayListActivity :
     override val viewModel by inject<DetailPlayListViewModel>()
     private var data: String? = ""
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     override fun setupViews() {
         setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            DetailVideoActivity.instanceActivity(this, listDetail, 0)
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            if (isOnline(this)) {
+                DetailVideoActivity.instanceActivity(this, listDetail, 0)
+            }else{
+                this.showToast("Подключитесь к интернету")
+            }
+            Snackbar.make(view, "Подключение к Интернету отсутствует", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
         setDetailAdapter()
         getIntentData()
         toggleFullScreen()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.networkLiveData().observe(this, Observer {isConnected ->
+            if (isConnected){
+                layoutDisconnectt.visibility = View.GONE
+
+                layoutConnectt.visibility = View.VISIBLE
+            }else{
+                layoutConnectt.visibility = View.GONE
+                layoutDisconnectt.visibility = View.VISIBLE
+            }
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.networkLiveData().removeObservers(this)
     }
 
     override fun setupLiveData() {
@@ -81,10 +111,8 @@ class DetailPlayListActivity :
     }
 
     override fun itemClick(position: Int) {
-        DetailVideoActivity.instanceActivity(this, listDetail, position)
+           DetailVideoActivity.instanceActivity(this, listDetail, position)
     }
 
-    override fun itemClick(model: DetailVideo) {
-
-    }
+    override fun itemClick(model: DetailVideo) {}
 }

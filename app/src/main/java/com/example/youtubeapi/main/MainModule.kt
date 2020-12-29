@@ -1,5 +1,6 @@
 package com.example.youtubeapi.main
 
+import com.example.youtubeapi.data.network.connection.NetworkConnection
 import com.example.youtubeapi.data.local.pref.Preferences
 import com.example.youtubeapi.data.local.room.DataBaseClient
 import com.example.youtubeapi.data.network.RetrofitClient
@@ -17,6 +18,11 @@ var mainModule: Module = module {
     single { RetrofitClient().instanceRetrofit() }
     single { YouTubeRepository(get(), get()) }
     single { Preferences(get()) }
+    single {
+        NetworkConnection(
+            androidContext()
+        )
+    }
 }
 
 val databaseModule = module {
@@ -25,8 +31,8 @@ val databaseModule = module {
 }
 
 var viewModelModule = module {
-    viewModel { MainViewModel(get()) }
-    viewModel { DetailPlayListViewModel(get()) }
-    viewModel { DetailVideoViewModel() }
+    viewModel { MainViewModel(get(),get()) }
+    viewModel { DetailPlayListViewModel(get(),get()) }
+    viewModel { DetailVideoViewModel(get()) }
 }
 
