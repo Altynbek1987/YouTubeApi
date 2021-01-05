@@ -54,11 +54,13 @@ class DetailPlayListActivity :
         viewModel.networkLiveData().observe(this, Observer {isConnected ->
             if (isConnected){
                 layoutDisconnectt.visibility = View.GONE
-
+                fab.visibility = View.VISIBLE
                 layoutConnectt.visibility = View.VISIBLE
             }else{
                 layoutConnectt.visibility = View.GONE
                 layoutDisconnectt.visibility = View.VISIBLE
+                fab.visibility = View.GONE
+
             }
         })
     }

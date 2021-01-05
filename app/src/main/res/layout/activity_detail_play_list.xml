@@ -43,6 +43,7 @@
 
     <include layout="@layout/activity_no_internet" />
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.youtubeapi.R
 import com.example.youtubeapi.data.models.DetailVideo
+import com.example.youtubeapi.data.network.connection.NetworkConnection
 import com.example.youtubeapi.interfa.OnItemClickListener
 import com.example.youtubeapi.ui.fragment.adapter.AdapterDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -32,6 +34,17 @@ class ActionBottomDialogFragment(private var onItemClickListener: OnItemClickLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDialogAdapter()
+
+        val networkConnection = NetworkConnection(requireContext())
+        networkConnection.observe(this, Observer { isConnected ->
+            if (isConnected){
+                layout_disconnect_fragment.visibility = View.GONE
+                layout_connect_fragment.visibility = View.VISIBLE
+            }else{
+                layout_connect_fragment.visibility = View.GONE
+                layout_disconnect_fragment.visibility = View.VISIBLE
+            }
+        })
     }
 
     fun setDialogAdapter() {
