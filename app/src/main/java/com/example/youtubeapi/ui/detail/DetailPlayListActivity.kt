@@ -13,24 +13,24 @@ import com.example.youtubeapi.R
 import com.example.youtubeapi.base.BaseActivity
 import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.data.network.Status
+import com.example.youtubeapi.databinding.ActivityDetailPlayListBinding
+import com.example.youtubeapi.databinding.ActivityMainBinding
 import com.example.youtubeapi.interfa.OnItemClickListener
 import com.example.youtubeapi.ui.detail.adapter.DetailPlayListAdapter
 import com.example.youtubeapi.ui.video.DetailVideoActivity
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_detail_play_list.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_no_internet.*
-import kotlinx.android.synthetic.main.content_scrolling.*
 import org.koin.android.ext.android.inject
 
 class DetailPlayListActivity :
-    BaseActivity<DetailPlayListViewModel>(R.layout.activity_detail_play_list), OnItemClickListener {
+    BaseActivity<DetailPlayListViewModel, ActivityDetailPlayListBinding>(), OnItemClickListener {
     private var listDetail: MutableList<DetailVideo> = mutableListOf()
     private lateinit var adapter: DetailPlayListAdapter
     override val viewModel by inject<DetailPlayListViewModel>()
     private var data: String? = ""
+
+    override fun getViewBinding() = ActivityDetailPlayListBinding.inflate(layoutInflater)
 
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     override fun setupViews() {
@@ -54,13 +54,14 @@ class DetailPlayListActivity :
         super.onStart()
         viewModel.networkLiveData().observe(this, Observer {isConnected ->
             if (isConnected){
-                layoutDisconnectt.visibility = View.GONE
-                fab.visibility = View.VISIBLE
-                layoutConnectt.visibility = View.VISIBLE
+
+                binding.includeNoInternet.layoutDisconnectt.visibility = View.GONE
+                binding.fab.visibility = View.VISIBLE
+                binding.includeYesInternet.layoutConnectt.visibility = View.VISIBLE
             }else{
-                layoutConnectt.visibility = View.GONE
-                layoutDisconnectt.visibility = View.VISIBLE
-                fab.visibility = View.GONE
+                binding.includeYesInternet.layoutConnectt.visibility = View.GONE
+                binding.includeNoInternet.layoutDisconnectt.visibility = View.VISIBLE
+                binding.fab.visibility = View.GONE
 
             }
         })
@@ -80,9 +81,9 @@ class DetailPlayListActivity :
     fun setDetailAdapter() {
         adapter =
             DetailPlayListAdapter(this)
-        recyclerViewDetailPlayList.adapter = adapter
+        binding.includeYesInternet.recyclerViewDetailPlayList.adapter = adapter
         val snap = LinearSnapHelper()
-        snap.attachToRecyclerView(recyclerView)
+        snap.attachToRecyclerView(binding.includeYesInternet.recyclerViewDetailPlayList)
     }
 
     private fun getIntentData() {
@@ -98,7 +99,7 @@ class DetailPlayListActivity :
                         it.data?.items?.let { adapter.detailItems(it) }
                         listDetail = it.data?.items!!
                         Log.e("ololo", "SUCCESS" )
-                        toolbar_image.loadImage(it.data.items?.get(0)?.snippet?.thumbnails?.medium?.url.toString())
+                        binding.toolbarImage.loadImage(it.data.items?.get(0)?.snippet?.thumbnails?.medium?.url.toString())
                     }
                     Status.ERROR -> {
                         saveRoom()

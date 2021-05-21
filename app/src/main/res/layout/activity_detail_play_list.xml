@@ -39,9 +39,13 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_scrolling" />
+    <include
+        android:id="@+id/include_yes_internet"
+        layout="@layout/content_scrolling" />
 
-    <include layout="@layout/activity_no_internet" />
+    <include
+        android:id="@+id/include_no_internet"
+        layout="@layout/activity_no_internet" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

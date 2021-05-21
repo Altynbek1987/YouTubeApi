@@ -9,16 +9,18 @@ import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
-import com.example.youtubeapi.R
 import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.data.network.connection.NetworkConnection
+import com.example.youtubeapi.databinding.FragmentActionBottomDialogBinding
 import com.example.youtubeapi.interfa.OnItemClickListener
 import com.example.youtubeapi.ui.fragment.adapter.AdapterDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_action_bottom_dialog.*
 
 class ActionBottomDialogFragment(private var onItemClickListener: OnItemClickListener) :
     BottomSheetDialogFragment(), View.OnClickListener {
+
+    lateinit var binding: FragmentActionBottomDialogBinding
+
     private var mListener: ItemClickListener? = null
     private lateinit var adapter: AdapterDialog
 
@@ -27,7 +29,8 @@ class ActionBottomDialogFragment(private var onItemClickListener: OnItemClickLis
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_action_bottom_dialog, container, false)
+        binding = FragmentActionBottomDialogBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,11 +40,11 @@ class ActionBottomDialogFragment(private var onItemClickListener: OnItemClickLis
         val networkConnection = NetworkConnection(requireContext())
         networkConnection.observe(this, Observer { isConnected ->
             if (isConnected){
-                layout_disconnect_fragment.visibility = View.GONE
-                layout_connect_fragment.visibility = View.VISIBLE
+                binding.layoutDisconnectFragment.visibility = View.GONE
+                binding.layoutConnectFragment.visibility = View.VISIBLE
             }else{
-                layout_connect_fragment.visibility = View.GONE
-                layout_disconnect_fragment.visibility = View.VISIBLE
+                binding.layoutConnectFragment.visibility = View.GONE
+                binding.layoutDisconnectFragment.visibility = View.VISIBLE
             }
         })
     }
@@ -49,7 +52,7 @@ class ActionBottomDialogFragment(private var onItemClickListener: OnItemClickLis
     fun setDialogAdapter() {
         adapter =
             AdapterDialog(onItemClickListener)
-        recyclerView_dialog_fragment.adapter = adapter
+        binding.recyclerViewDialogFragment.adapter = adapter
         detaillist?.let { adapter.videoDialog(item = it) }
     }
 

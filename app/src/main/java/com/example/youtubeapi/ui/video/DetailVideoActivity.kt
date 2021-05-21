@@ -13,26 +13,28 @@ import com.example.firstapp.extensions.showToast
 import com.example.youtubeapi.R
 import com.example.youtubeapi.base.BaseActivity
 import com.example.youtubeapi.data.models.DetailVideo
+import com.example.youtubeapi.databinding.ActivityDetailVideoBinding
 import com.example.youtubeapi.interfa.OnItemClickListener
 import com.example.youtubeapi.ui.fragment.ActionBottomDialogFragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.r0adkll.slidr.Slidr
-import kotlinx.android.synthetic.main.activity_detail_video.*
 import org.koin.android.ext.android.inject
 
-class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity_detail_video),
+class DetailVideoActivity : BaseActivity<DetailVideoViewModel, ActivityDetailVideoBinding>(),
     ActionBottomDialogFragment.ItemClickListener, OnItemClickListener {
     override val viewModel by inject<DetailVideoViewModel>()
     private var listDialogg: MutableList<DetailVideo> = mutableListOf()
     private var dataV: String? = ""
 
+    override fun getViewBinding() = ActivityDetailVideoBinding.inflate(layoutInflater)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_YouTubeApi)
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        image_download.setOnClickListener {
+        binding.imageDownload.setOnClickListener {
             detaillist?.let { it1 ->
                 ActionBottomDialogFragment.showFragment(
                     detaillist = it1,
@@ -48,12 +50,12 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
         super.onStart()
         viewModel.networkLiveData().observe(this, Observer {isConnected ->
             if (isConnected){
-                layoutDisconnectDva.visibility = View.GONE
+                binding.layoutDisconnectDva.visibility = View.GONE
 
-                layoutConnectDva.visibility = View.VISIBLE
+                binding.layoutConnectDva.visibility = View.VISIBLE
             }else{
-                layoutConnectDva.visibility = View.GONE
-                layoutDisconnectDva.visibility = View.VISIBLE
+                binding.layoutConnectDva.visibility = View.GONE
+                binding.layoutDisconnectDva.visibility = View.VISIBLE
             }
         })
     }
@@ -81,8 +83,8 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
             if (dataV.isNullOrEmpty()) dataV =
                 detaillist?.get(positionVideo!!)?.snippet?.resourceId?.videoId
             playerYT(dataV)
-            tv_title_detail_video.text = detaillist?.get(positionVideo!!)?.snippet?.title
-            tv_description_detail_video.text =
+            binding.tvTitleDetailVideo.text = detaillist?.get(positionVideo!!)?.snippet?.title
+            binding.tvDescriptionDetailVideo.text =
                 detaillist?.get(positionVideo!!)?.snippet?.description
         }
     }else{
@@ -109,7 +111,7 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
 
     override fun onDestroy() {
         super.onDestroy()
-        youtube_player_view.release()
+        binding.youtubePlayerView.release()
     }
 
     override fun onItemClick(item: String?) {}

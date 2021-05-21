@@ -8,26 +8,32 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.firstapp.extensions.showToast
 import com.example.youtubeapi.R
 import com.example.youtubeapi.extensions.loadLocale
 
-abstract class BaseActivity<ViewModel : BaseViewModel>(private var layoutId: Int) :
+abstract class BaseActivity<ViewModel : BaseViewModel, B : ViewBinding> :
     AppCompatActivity() {
+
     abstract val viewModel: ViewModel
+    lateinit var binding: B
     private val ID_HOME = 1
     private val ID_MESSAGE = 2
     private val ID_ACCOUNT = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layoutId)
+        binding = getViewBinding()
+        setContentView(binding.root)
         setupViews()
         setupLiveData()
         setupFetchRequests()
         showError()
     }
+
+    abstract fun getViewBinding() : B
 
     @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     override fun onResume() {

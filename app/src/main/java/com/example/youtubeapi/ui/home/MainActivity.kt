@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
@@ -18,19 +17,21 @@ import com.example.youtubeapi.R
 import com.example.youtubeapi.base.BaseActivity
 import com.example.youtubeapi.data.models.DetailVideo
 import com.example.youtubeapi.data.models.PlaylistItems
+import com.example.youtubeapi.databinding.ActivityMainBinding
 import com.example.youtubeapi.interfa.OnItemClickListener
 import com.example.youtubeapi.ui.detail.DetailPlayListActivity
 import com.example.youtubeapi.ui.home.adapter.MainAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
-class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main), OnItemClickListener {
+class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(), OnItemClickListener {
     private val ID_HOME = 1
     private val ID_MESSAGE = 2
     private val ID_ACCOUNT = 3
     private var listUrlMA: MutableList<PlaylistItems> = mutableListOf()
     private lateinit var adapter: MainAdapter
     override val viewModel by inject<MainViewModel>()
+
+    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_YouTubeApi)
@@ -61,12 +62,13 @@ class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main), OnItem
         super.onStart()
         viewModel.networkLiveData().observe(this, Observer { isConnected ->
             if (isConnected) {
-                layoutDisconnect.visibility = View.GONE
 
-                layoutConnect.visibility = View.VISIBLE
+                binding.layoutDisconnect.visibility = View.GONE
+
+                binding.layoutConnect.visibility = View.VISIBLE
             } else {
-                layoutConnect.visibility = View.GONE
-                layoutDisconnect.visibility = View.VISIBLE
+                binding.layoutConnect.visibility = View.GONE
+                binding.layoutDisconnect.visibility = View.VISIBLE
             }
         })
     }
@@ -91,9 +93,9 @@ class MainActivity : BaseActivity<MainViewModel>(R.layout.activity_main), OnItem
 
     private fun setAdapter() {
         adapter = MainAdapter(this)
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
         val snap = LinearSnapHelper()
-        snap.attachToRecyclerView(recyclerView)
+        snap.attachToRecyclerView(binding.recyclerView)
     }
 
     private fun fetchPlaylists() {
