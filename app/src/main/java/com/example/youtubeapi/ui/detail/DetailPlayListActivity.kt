@@ -1,6 +1,7 @@
 package com.example.youtubeapi.ui.detail
 
 import android.os.Build
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
@@ -86,6 +87,7 @@ class DetailPlayListActivity :
 
     private fun getIntentData() {
         data = intent.getStringExtra("id")
+        Log.e("ololo", "Ok" )
     }
 
     private fun fetchPlayListsItems() {
@@ -95,10 +97,12 @@ class DetailPlayListActivity :
                     Status.SUCCESS -> {
                         it.data?.items?.let { adapter.detailItems(it) }
                         listDetail = it.data?.items!!
+                        Log.e("ololo", "SUCCESS" )
                         toolbar_image.loadImage(it.data.items?.get(0)?.snippet?.thumbnails?.medium?.url.toString())
                     }
                     Status.ERROR -> {
                         saveRoom()
+                        Log.e("ololo", "ERROR" )
                     }
                 }
             })

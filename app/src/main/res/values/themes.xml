@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.YouTubeApi" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#B5B5BC</item>
+        <item name="colorPrimary">#C6C8CA</item>
         <item name="colorPrimaryVariant">#959597</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->

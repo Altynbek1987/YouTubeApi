@@ -72,7 +72,8 @@ class DetailVideoActivity : BaseActivity<DetailVideoViewModel>(R.layout.activity
 
     override fun setupLiveData() {}
 
-    override fun setupFetchRequests() {}
+    override fun setupFetchRequests() {
+    }
 
     fun getIntentVideo() {
         if (isOnline(this)) {

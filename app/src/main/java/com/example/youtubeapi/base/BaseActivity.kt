@@ -1,16 +1,24 @@
 package com.example.youtubeapi.base
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.View
+import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.firstapp.extensions.showToast
+import com.example.youtubeapi.R
 import com.example.youtubeapi.extensions.loadLocale
 
 abstract class BaseActivity<ViewModel : BaseViewModel>(private var layoutId: Int) :
     AppCompatActivity() {
     abstract val viewModel: ViewModel
+    private val ID_HOME = 1
+    private val ID_MESSAGE = 2
+    private val ID_ACCOUNT = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +29,7 @@ abstract class BaseActivity<ViewModel : BaseViewModel>(private var layoutId: Int
         showError()
     }
 
+    @RequiresApi(Build.VERSION_CODES.GINGERBREAD)
     override fun onResume() {
         loadLocale(this)
         super.onResume()

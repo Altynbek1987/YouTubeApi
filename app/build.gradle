@@ -108,5 +108,7 @@ dependencies {
 
     //Slide close
     implementation 'com.r0adkll:slidableactivity:2.0.6'
+    //Bottom navigation
+    implementation'com.etebarian:meow-bottom-navigation-java:1.2.0'
 
 }
