@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SplashScreenTheme">
-
+        <activity android:name=".ui.pdd.PDDActivity"></activity>
         <activity
             android:name=".ui.video.DetailVideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
@@ -28,13 +28,12 @@
         <activity
             android:name=".ui.detail.DetailPlayListActivity"
             android:label="@string/title_activity_scrolling"
-            android:theme="@style/Theme.YouTubeApi.NoActionBar"/>
+            android:theme="@style/Theme.YouTubeApi.NoActionBar" />
         <activity android:name=".ui.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
         </activity>
     </application>

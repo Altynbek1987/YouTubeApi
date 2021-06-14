@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.youtubeapi.R
 import com.example.youtubeapi.base.BaseActivity
 import com.example.youtubeapi.data.models.DetailVideo
@@ -21,12 +20,11 @@ import com.example.youtubeapi.databinding.ActivityMainBinding
 import com.example.youtubeapi.interfa.OnItemClickListener
 import com.example.youtubeapi.ui.detail.DetailPlayListActivity
 import com.example.youtubeapi.ui.home.adapter.MainAdapter
+import com.example.youtubeapi.ui.pdd.PDDActivity
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(), OnItemClickListener {
-    private val ID_HOME = 1
-    private val ID_MESSAGE = 2
-    private val ID_ACCOUNT = 3
+
     private var listUrlMA: MutableList<PlaylistItems> = mutableListOf()
     private lateinit var adapter: MainAdapter
     override val viewModel by inject<MainViewModel>()
@@ -36,26 +34,13 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(), OnItemC
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_YouTubeApi)
         super.onCreate(savedInstanceState)
-        val bottomNavigation =
-            findViewById<MeowBottomNavigation>(R.id.bottomNavigation)
-        bottomNavigation.add(MeowBottomNavigation.Model(ID_MESSAGE, R.drawable.ic_message))
-        bottomNavigation.add(MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_home))
-        bottomNavigation.add(MeowBottomNavigation.Model(ID_ACCOUNT, R.drawable.ic_account))
-        bottomNavigation.setOnClickMenuListener { item ->
-        }
 
-        bottomNavigation.setOnShowListener { item ->
-            val name: String
-            when (item.id) {
-                ID_MESSAGE -> name = "Message"
-                ID_HOME -> name = "Home"
-                ID_ACCOUNT -> { name = "Account"
-                }
-                else -> name = ""
-            }
-        }
-        // bottomNavigation.setCount(ID_NOTIFICATION,"4");
-        bottomNavigation.show(ID_HOME, true)
+        binding.fab.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@MainActivity, PDDActivity::class.java)
+            startActivity(intent)
+
+        })
+
     }
 
     override fun onStart() {
