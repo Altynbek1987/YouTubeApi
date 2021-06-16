@@ -7,8 +7,9 @@
     tools:context=".ui.pdd.fragments.tests.TestsFragment">
 
     <TextView
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:text="TestsFragment" />
 
 </FrameLayout>
